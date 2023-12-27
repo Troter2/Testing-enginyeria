@@ -13,7 +13,7 @@ public class TestData {
         Nif nif2 =new Nif("1234N");
         Nif nif3 =new Nif("1235N");
         Nif nif4 = new Nif("null");
-        assertEquals(nif,nif2);
+        assertTrue(nif.equals(nif2));
         assertNotEquals(nif,nif3);
         assertNull(nif4);
     }

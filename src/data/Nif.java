@@ -7,7 +7,7 @@ public class Nif {
         this.nif = nif1;}
     }
     public boolean equals (String nif2){
-        return this.nif == nif2;
+        return this.nif.equals(nif2);
     }
 
 
