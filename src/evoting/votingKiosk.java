@@ -64,8 +64,8 @@ public class votingKiosk {
     }
 
     private class InvalidDNIDocumException extends Exception {
-        public InvalidDNIDocumException(String pritn) {
-            System.out.println(pritn);
+        public InvalidDNIDocumException(String print) {
+            System.out.println(print);
         }
     }
 

@@ -4,6 +4,7 @@ import services.ElectoralOrganism;
 import java.net.ConnectException;
 
 public class NotConnectedElectoralOrganism implements ElectoralOrganism{
+    public NotConnectedElectoralOrganism(){}
     public void canVote(Nif nif) throws ConnectException {
         throw new ConnectException();
     }
