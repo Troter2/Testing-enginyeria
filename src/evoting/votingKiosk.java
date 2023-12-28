@@ -3,10 +3,8 @@ package evoting;
 import data.Nif;
 import data.Password;
 import data.VotingOption;
-import services.Scrutiny;
 
 import java.net.ConnectException;
-import java.util.List;
 
 /**
  * Internal classes involved in in the exercise of the vote
