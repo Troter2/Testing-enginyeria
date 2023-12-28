@@ -19,13 +19,19 @@ public class votingKiosk implements Scrutiny {
     public void initVoting () {}//{ . . . }
     public void setDocument (char opt) {}//{ . . . }
     public void enterAccount (String login, Password pssw)
-            throws InvalidAccountException {}//{ . . . }
+            throws InvalidAccountException {
+
+    }//{ . . . }
     public void confirmIdentif (char conf) throws InvalidDNIDocumException
     {
         if (conf=='a'){
             System.out.println("Document correcte");
+        }else if(conf=='b'){
+            throw new InvalidDNIDocumException("El Nif esta caducat");
+        }else if (conf=='c'){
+            throw new InvalidDNIDocumException("El Nif no correspon a la persona");
         }else{
-            throw new InvalidDNIDocumException();
+            throw new InvalidDNIDocumException("El Nif no es valid");
         }
     }//{ . . . }
     public void enterNif (Nif nif) throws NotEnabledException, ConnectException
@@ -44,9 +50,9 @@ public class votingKiosk implements Scrutiny {
     public void confirmVotingOption (char conf) throws ConnectException {
         System.out.println("Escriviu la lletra 'a' si el vot es correcte");
         if (conf=='a'){
-            
+
         }else{
-            throw new ConnectException();
+            throw new ConnectException("el vot no sa confirmat");
         }
     }//{ . . .}
     // Internal operation, not required
@@ -94,6 +100,9 @@ public class votingKiosk implements Scrutiny {
     }
 
     private class InvalidDNIDocumException extends Exception {
+        public InvalidDNIDocumException(String pritn) {
+            System.out.println(pritn);
+        }
     }
 
     private class NotEnabledException extends Exception {
