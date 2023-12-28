@@ -28,10 +28,10 @@ public class votingKiosk {
     }
     public void setDocument (char opt) {
         if(opt=='a'){
-            //seleciona el dni
+            //selecionar el dni
 
         }else if(opt=='b'){
-            //seleciona el passaport
+            //selecionar el passaport
 
         }
     }
