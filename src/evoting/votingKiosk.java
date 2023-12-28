@@ -15,19 +15,40 @@ public class votingKiosk implements Scrutiny {
     //??? // The class members
      //??? // The constructor/s
     // Input events
+    Nif nif1;
     public void initVoting () {}//{ . . . }
     public void setDocument (char opt) {}//{ . . . }
     public void enterAccount (String login, Password pssw)
             throws InvalidAccountException {}//{ . . . }
     public void confirmIdentif (char conf) throws InvalidDNIDocumException
-    {}//{ . . . }
+    {
+        if (conf=='a'){
+            System.out.println("Document correcte");
+        }else{
+            throw new InvalidDNIDocumException();
+        }
+    }//{ . . . }
     public void enterNif (Nif nif) throws NotEnabledException, ConnectException
-    {}//{ . . . }
-    public void initOptionsNavigation () {}//{ . . . }
-    public void consultVotingOption (VotingOption vopt) {}//{ . . . }
+    {
+        nif1=nif;
+    }//{ . . . }
+    public void initOptionsNavigation () {
+
+    }//{ . . . }
+    public void consultVotingOption (VotingOption vopt) {
+        String info=vopt.getParty();
+        System.out.println(info);
+    }//{ . . . }
     public void vote () {}//{ . . . }
 
-    public void confirmVotingOption (char conf) throws ConnectException {}//{ . . .}
+    public void confirmVotingOption (char conf) throws ConnectException {
+        System.out.println("Escriviu la lletra 'a' si el vot es correcte");
+        if (conf=='a'){
+            
+        }else{
+            throw new ConnectException();
+        }
+    }//{ . . .}
     // Internal operation, not required
     private void finalizeSession () {}//{ . . . }
 
