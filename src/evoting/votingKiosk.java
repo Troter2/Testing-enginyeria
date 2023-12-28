@@ -16,8 +16,18 @@ public class votingKiosk {
      //??? // The constructor/s
     // Input events
     Nif nif1;
-    public void initVoting () {}//{ . . . }
-    public void setDocument (char opt) {}//{ . . . }
+    public void initVoting () {
+        
+    }//{ . . . }
+    public void setDocument (char opt) {
+        if(opt=='a'){
+            //seleciona el dni
+
+        }else if(opt=='b'){
+            //seleciona el passaport
+
+        }
+    }//{ . . . }
     public void enterAccount (String login, Password pssw)
             throws InvalidAccountException {
         LocalService local = new PositiveLocalService();
