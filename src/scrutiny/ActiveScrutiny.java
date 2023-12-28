@@ -1,3 +1,5 @@
+package scrutiny;
+
 import data.VotingOption;
 import services.Scrutiny;
 

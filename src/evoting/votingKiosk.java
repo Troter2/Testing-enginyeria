@@ -5,16 +5,24 @@ import data.Password;
 import data.VotingOption;
 import localService.PositiveLocalService;
 import services.LocalService;
+import electoralOrganism.EnableElectoralOrganism;
+import scrutiny.ActiveScrutiny;
+import services.ElectoralOrganism;
 
 import java.net.ConnectException;
 
 /**
- * Internal classes involved in in the exercise of the vote
+ * Internal classes involved in the exercise of the vote
  */
 public class votingKiosk {
     //??? // The class members
      //??? // The constructor/s
     // Input events
+    ActiveScrutiny scrutiny = new ActiveScrutiny();
+    EnableElectoralOrganism electoralOrganism = new EnableElectoralOrganism();
+    Nif curNif;
+
+    VotingOption curVotingOption,vote;
     Nif nif1;
     public void initVoting () {
         
@@ -28,6 +36,7 @@ public class votingKiosk {
 
         }
     }//{ . . . }
+
     public void enterAccount (String login, Password pssw)
             throws InvalidAccountException {
         LocalService local = new PositiveLocalService();
@@ -49,23 +58,32 @@ public class votingKiosk {
             throw new InvalidDNIDocumException("El Nif no es valid");
         }
     }//{ . . . }
-    public void enterNif (Nif nif) throws NotEnabledException, ConnectException
+    public void enterNif (Nif nif)
     {
-        nif1=nif;
-    }//{ . . . }
+        try {
+            electoralOrganism.canVote(nif);
+            curNif=nif;
+        } catch (ElectoralOrganism.NotEnabledException e) {
+            System.out.println("Aquest usuari ja no pot votar");
+        }
+    }
     public void initOptionsNavigation () {
 
     }//{ . . . }
     public void consultVotingOption (VotingOption vopt) {
-        String info=vopt.getParty();
-        System.out.println(info);
+        curVotingOption = vopt;
     }//{ . . . }
-    public void vote () {}//{ . . . }
+    public void vote () {
+        vote = curVotingOption;
+    }
+
+
 
     public void confirmVotingOption (char conf) throws ConnectException {
-        System.out.println("Escriviu la lletra 'a' si el vot es correcte");
+        System.out.println("Escriviu la lletra 'a' si vols votar " + vote);
         if (conf=='a'){
-
+            increaseVote();
+            electoralOrganism.disableVoter(curNif);
         }else{
             throw new ConnectException("el vot no sa confirmat");
         }
@@ -74,6 +92,9 @@ public class votingKiosk {
     private void finalizeSession () {}//{ . . . }
 
     //(. . .) // Setter methods for injecting dependences and additional methods
+    private void increaseVote() {
+        scrutiny.scrutinize(vote);
+    }
 
     private class InvalidAccountException extends Exception {
     }
