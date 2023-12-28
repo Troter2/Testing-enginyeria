@@ -29,6 +29,11 @@ public class votingKiosk {
     public void setDocument (char opt) {
         if(opt=='a'){
             //selecionar el dni
+            try {
+                confirmIdentif('a');
+            } catch (InvalidDNIDocumException e) {
+                e.printStackTrace();
+            }
 
         }else if(opt=='b'){
             //selecionar el passaport
