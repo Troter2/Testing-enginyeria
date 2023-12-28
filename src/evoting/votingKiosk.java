@@ -16,17 +16,16 @@ import java.net.ConnectException;
  */
 public class votingKiosk {
     //??? // The class members
-     //??? // The constructor/s
+    //??? // The constructor/s
     // Input events
     ActiveScrutiny scrutiny = new ActiveScrutiny();
     EnableElectoralOrganism electoralOrganism = new EnableElectoralOrganism();
     Nif curNif;
 
     VotingOption curVotingOption,vote;
-    Nif nif1;
     public void initVoting () {
         
-    }//{ . . . }
+    }
     public void setDocument (char opt) {
         if(opt=='a'){
             //seleciona el dni
@@ -35,17 +34,17 @@ public class votingKiosk {
             //seleciona el passaport
 
         }
-    }//{ . . . }
+    }
 
     public void enterAccount (String login, Password pssw)
-            throws InvalidAccountException {
+    {
         LocalService local = new PositiveLocalService();
         try {
             local.verifyAccount(login,pssw);
         } catch (LocalService.InvalidAccountException e) {
             e.printStackTrace();
         }
-    }//{ . . . }
+    }
     public void confirmIdentif (char conf) throws InvalidDNIDocumException
     {
         if (conf=='a'){
@@ -57,7 +56,7 @@ public class votingKiosk {
         }else{
             throw new InvalidDNIDocumException("El Nif no es valid");
         }
-    }//{ . . . }
+    }
     public void enterNif (Nif nif)
     {
         try {
@@ -69,10 +68,10 @@ public class votingKiosk {
     }
     public void initOptionsNavigation () {
 
-    }//{ . . . }
+    }
     public void consultVotingOption (VotingOption vopt) {
         curVotingOption = vopt;
-    }//{ . . . }
+    }
     public void vote () {
         vote = curVotingOption;
     }
@@ -89,7 +88,7 @@ public class votingKiosk {
         }
     }//{ . . .}
     // Internal operation, not required
-    private void finalizeSession () {}//{ . . . }
+    private void finalizeSession () {}
 
     //(. . .) // Setter methods for injecting dependences and additional methods
     private void increaseVote() {

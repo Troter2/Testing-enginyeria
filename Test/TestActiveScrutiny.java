@@ -1,6 +1,7 @@
 import data.VotingOption;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import scrutiny.ActiveScrutiny;
 
 import java.util.ArrayList;
 import java.util.List;
