@@ -29,20 +29,18 @@ public class votingKiosk {
     }
     public void setDocument (char opt) {
         if(opt=='a'){
-            //seleciona el dni
+            //selecionar el dni
             try {
                 confirmIdentif('a');
             } catch (InvalidDNIDocumException e) {
                 e.printStackTrace();
             }
 
-
         }else if(opt=='b'){
-            //seleciona el passaport
+            //selecionar el passaport
 
         }
     }
-
 
     public void enterAccount (String login, Password pssw)
     {
@@ -75,7 +73,28 @@ public class votingKiosk {
         }
     }
     public void initOptionsNavigation () {
+        System.out.println("Benvingut al sistema de votació. Si us plau, selecciona una opció:");
+        System.out.println("a. Veure les opcions de vot disponibles");
+        System.out.println("b. Començar a votar");
+        System.out.println("c. Sortir");
 
+       /* char entradaUsuari = obtenirEntradaUsuari();
+
+        switch (entradaUsuari) {
+            case 'a':
+                mostrarOpcionsVot();
+                break;
+            case 'b':
+                iniciarVotacio();
+                break;
+            case 'c':
+                sortirSistemaVotacio();
+                break;
+            default:
+                System.out.println("Opció no vàlida. Si us plau, torna a intentar.");
+                initOptionsNavigation(); // Crida recursiva per gestionar una entrada no vàlida
+                break;
+        }*/
     }
     public void consultVotingOption (VotingOption vopt) {
         curVotingOption = vopt;
