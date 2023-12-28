@@ -21,16 +21,16 @@ public class ActiveScrutiny implements Scrutiny {
     }
 
     @Override
-    public void scrutinize(VotingOption vopt) {
-        if(votes.containsKey(vopt))
-            votes.put(vopt, votes.get(vopt)+1);
+    public void scrutinize(VotingOption opt) {
+        if(votes.containsKey(opt))
+            votes.put(opt, votes.get(opt)+1);
         else
             votes.put(new VotingOption("null"), votes.get(new VotingOption("null"))+1);
         totalVotes++;
     }
 
     @Override
-    public int getVotesFor(VotingOption vopt) {
+    public int getVotesFor(VotingOption opt) {
         return votes.get(new VotingOption("null"));
     }
 
