@@ -3,6 +3,8 @@ package evoting;
 import data.Nif;
 import data.Password;
 import data.VotingOption;
+import localService.PositiveLocalService;
+import services.LocalService;
 
 import java.net.ConnectException;
 
@@ -18,7 +20,12 @@ public class votingKiosk {
     public void setDocument (char opt) {}//{ . . . }
     public void enterAccount (String login, Password pssw)
             throws InvalidAccountException {
-
+        LocalService local = new PositiveLocalService();
+        try {
+            local.verifyAccount(login,pssw);
+        } catch (LocalService.InvalidAccountException e) {
+            e.printStackTrace();
+        }
     }//{ . . . }
     public void confirmIdentif (char conf) throws InvalidDNIDocumException
     {
