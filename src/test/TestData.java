@@ -7,26 +7,41 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestData {
-    @Test//El nif no pot ser null
-    public void niftest() throws Nif.InvalidNifException {
-        Nif nif =new Nif("1234N");
-        Nif nif2 =new Nif("1234N");
-        Nif nif3 =new Nif("1235N");
-        Nif nif4 = new Nif("null");
-        assertTrue(nif.equals(nif2));
-        assertNotEquals(nif,nif3);
-        assertNull(nif4);
+    @Test
+    // Pruebas para la clase Nif
+    public void testNif() {
+        // Caso de prueba 1: NIF válido
+        assertDoesNotThrow(() -> new Nif("12345678N"));
+
+        // Caso de prueba 2: NIF con longitud incorrecta
+        assertThrows(Nif.InvalidNifException.class, () -> new Nif("12356789"));
+
+        // Caso de prueba 3: NIF con formato incorrecto (letra en posición incorrecta)
+        assertThrows(Nif.InvalidNifException.class, () -> new Nif("1234567X8"));
+
+        // Caso de prueba 4: NIF con formato incorrecto (número en posición de letra)
+        assertThrows(Nif.InvalidNifException.class, () -> new Nif("123456789"));
+
+        // Caso de prueba 5: NIF con valor null
+        assertThrows(Nif.InvalidNifException.class, () -> new Nif(null));
     }
     @Test
-    public void TestPassword () throws Password.InvalidPasswordException {
-        Password password=new Password("123");
-        Password password1=new Password("123");
-        Password password2=new Password("123N");
-        Password password4=new Password(null);
-        assertEquals(password,password1);
-        assertNotEquals(password,password2);
-        assertNull(password4);
+    // Pruebas para la clase Password
+    public void testPassword() {
+        // Caso de prueba 1: Contraseña válida
+        assertDoesNotThrow(() -> new Password("Abcd123"));
 
+        // Caso de prueba 2: Contraseña con longitud incorrecta
+        assertThrows(Password.InvalidPasswordException.class, () -> new Password("Ab12"));
+
+        // Caso de prueba 3: Contraseña sin letra mayúscula
+        assertThrows(Password.InvalidPasswordException.class, () -> new Password("abcd123"));
+
+        // Caso de prueba 4: Contraseña sin número
+        assertThrows(Password.InvalidPasswordException.class, () -> new Password("Abcdefgh"));
+
+        // Caso de prueba 5: Contraseña con valor null
+        assertThrows(Password.InvalidPasswordException.class, () -> new Password(null));
     }
 
 }
