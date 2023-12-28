@@ -31,7 +31,7 @@ public class ActiveScrutiny implements Scrutiny {
 
     @Override
     public int getVotesFor(VotingOption opt) {
-        return votes.get(new VotingOption("null"));
+        return votes.get(opt);
     }
 
     @Override
