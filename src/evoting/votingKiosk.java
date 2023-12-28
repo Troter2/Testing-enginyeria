@@ -3,13 +3,15 @@ package evoting;
 import data.Nif;
 import data.Password;
 import data.VotingOption;
+import services.Scrutiny;
 
 import java.net.ConnectException;
+import java.util.List;
 
 /**
  * Internal classes involved in in the exercise of the vote
  */
-public class votingKiosk {
+public class votingKiosk implements Scrutiny {
     //??? // The class members
      //??? // The constructor/s
     // Input events
@@ -29,6 +31,41 @@ public class votingKiosk {
     // Internal operation, not required
     private void finalizeSession () {}//{ . . . }
 
+    @Override
+    public void initVoteCount(List<VotingOption> validParties) {
+
+    }
+
+    @Override
+    public void scrutinize(VotingOption vopt) {
+
+    }
+
+    @Override
+    public int getVotesFor(VotingOption vopt) {
+        return 0;
+    }
+
+    @Override
+    public int getTotal() {
+        return 0;
+    }
+
+    @Override
+    public int getNulls() {
+        return 0;
+    }
+
+    @Override
+    public int getBlanks() {
+        return 0;
+    }
+
+    @Override
+    public void getScrutinyResults() {
+
+    }
+
 
     //(. . .) // Setter methods for injecting dependences and additional methods
 
@@ -38,6 +75,6 @@ public class votingKiosk {
     private class InvalidDNIDocumException extends Exception {
     }
 
-    public class NotEnabledException extends Exception {
+    private class NotEnabledException extends Exception {
     }
 }
