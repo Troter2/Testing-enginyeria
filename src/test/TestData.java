@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestData {
     @Test//El nif no pot ser null
-    public void niftest(){
+    public void niftest() throws Nif.InvalidNifException {
         Nif nif =new Nif("1234N");
         Nif nif2 =new Nif("1234N");
         Nif nif3 =new Nif("1235N");
@@ -18,7 +18,7 @@ public class TestData {
         assertNull(nif4);
     }
     @Test
-    public void TestPassword (){
+    public void TestPassword () throws Password.InvalidPasswordException {
         Password password=new Password("123");
         Password password1=new Password("123");
         Password password2=new Password("123N");
