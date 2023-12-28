@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Internal classes involved in in the exercise of the vote
  */
-public class votingKiosk implements Scrutiny {
+public class votingKiosk {
     //??? // The class members
      //??? // The constructor/s
     // Input events
@@ -57,42 +57,6 @@ public class votingKiosk implements Scrutiny {
     }//{ . . .}
     // Internal operation, not required
     private void finalizeSession () {}//{ . . . }
-
-    @Override
-    public void initVoteCount(List<VotingOption> validParties) {
-
-    }
-
-    @Override
-    public void scrutinize(VotingOption vopt) {
-
-    }
-
-    @Override
-    public int getVotesFor(VotingOption vopt) {
-        return 0;
-    }
-
-    @Override
-    public int getTotal() {
-        return 0;
-    }
-
-    @Override
-    public int getNulls() {
-        return 0;
-    }
-
-    @Override
-    public int getBlanks() {
-        return 0;
-    }
-
-    @Override
-    public void getScrutinyResults() {
-
-    }
-
 
     //(. . .) // Setter methods for injecting dependences and additional methods
 
