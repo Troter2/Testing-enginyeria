@@ -3,10 +3,10 @@ package evoting;
 import data.Nif;
 import data.Password;
 import data.VotingOption;
-import services.Scrutiny;
+import localService.PositiveLocalService;
+import services.LocalService;
 
 import java.net.ConnectException;
-import java.util.List;
 
 /**
  * Internal classes involved in in the exercise of the vote
@@ -16,11 +16,26 @@ public class votingKiosk {
      //??? // The constructor/s
     // Input events
     Nif nif1;
-    public void initVoting () {}//{ . . . }
-    public void setDocument (char opt) {}//{ . . . }
+    public void initVoting () {
+        
+    }//{ . . . }
+    public void setDocument (char opt) {
+        if(opt=='a'){
+            //seleciona el dni
+
+        }else if(opt=='b'){
+            //seleciona el passaport
+
+        }
+    }//{ . . . }
     public void enterAccount (String login, Password pssw)
             throws InvalidAccountException {
-
+        LocalService local = new PositiveLocalService();
+        try {
+            local.verifyAccount(login,pssw);
+        } catch (LocalService.InvalidAccountException e) {
+            e.printStackTrace();
+        }
     }//{ . . . }
     public void confirmIdentif (char conf) throws InvalidDNIDocumException
     {
@@ -64,8 +79,8 @@ public class votingKiosk {
     }
 
     private class InvalidDNIDocumException extends Exception {
-        public InvalidDNIDocumException(String pritn) {
-            System.out.println(pritn);
+        public InvalidDNIDocumException(String print) {
+            System.out.println(print);
         }
     }
 
