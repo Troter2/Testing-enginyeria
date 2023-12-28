@@ -24,22 +24,25 @@ public class votingKiosk {
 
     VotingOption curVotingOption,vote;
     public void initVoting () {
-        
+        System.out.println("Benvingut a la plataforma de votació electrònica.");
+        System.out.println("Si us plau, segueix les instruccions per començar el procés de votació.");
     }
     public void setDocument (char opt) {
         if(opt=='a'){
-            //selecionar el dni
+            //seleciona el dni
             try {
                 confirmIdentif('a');
             } catch (InvalidDNIDocumException e) {
                 e.printStackTrace();
             }
 
+
         }else if(opt=='b'){
-            //selecionar el passaport
+            //seleciona el passaport
 
         }
     }
+
 
     public void enterAccount (String login, Password pssw)
     {
