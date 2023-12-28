@@ -1,5 +1,3 @@
-package test;
-
 import data.Nif;
 import data.Password;
 import org.junit.jupiter.api.Test;
