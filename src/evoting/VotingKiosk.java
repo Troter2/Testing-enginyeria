@@ -132,21 +132,52 @@ public class VotingKiosk {
         scrutiny.scrutinize(vote);
     }
 
+    //Part 2
+    private void verifiyBiometricData(BiometricData humanBioD, BiometricData passpBioD) throws BiometricVerificationFailedException {
+        if (humanBioD.equals(passpBioD)){
 
-    public class InvalidDNIDocumException extends Exception {
-        public InvalidDNIDocumException(String print) {
-            System.out.println(print);
+        }else{
+            removeBiometricData();
+            throw new BiometricVerificationFailedException();
         }
     }
+    private void removeBiometricData () {
 
-    class Conditions{
-        boolean evote_active;
-        boolean vote_option;
-        boolean confirmed_vote;
-        public Conditions(){
+    }
+
+    public void grantExplicitConsent (char cons) {
+
+    }
+    public void readPassport () throws PassportBiometricReader.NotValidPassportException, PassportBiometricReader.PassportBiometricReadingException, BiometricVerificationFailedException, HumanBiometricScanner.HumanBiometricScanningException, ElectoralOrganism.NotEnabledException, ConnectException {
+
+        PassportBiometricReader passport=new PositivePassportBiometricReader();
+        passport.validatePassport();
+        readFaceBiometrics();
+        readFingerPrintBiometrics();
+
+    }
+    public void readFaceBiometrics () throws HumanBiometricScanner.HumanBiometricScanningException {
+        HumanBiometricScanner human=new PositiveHumanBiometricScanner();
+        face=human.scanFaceBiometrics();
+
+    }
+    public void readFingerPrintBiometrics () throws ElectoralOrganism.NotEnabledException, HumanBiometricScanner.HumanBiometricScanningException, BiometricVerificationFailedException, ConnectException {
+        HumanBiometricScanner human=new PositiveHumanBiometricScanner();
+        finger=human.scanFingerprintBiometrics();
+    }
+
+
+
+    class Conditions {
+        boolean confirmed_vote, explicitConsent, vote_option, evote_active, faceBiometrics, fingerBiometrics;
+
+        public Conditions() {
             evote_active = false;
             vote_option = false;
             confirmed_vote = false;
+            explicitConsent = false;
+            faceBiometrics = false;
+            fingerBiometrics = false;
         }
 
         public void setEvote_active(boolean evote_active) {
@@ -172,46 +203,20 @@ public class VotingKiosk {
         public boolean isVote_option() {
             return vote_option;
         }
-
-        //Part 2
-        private void verifiyBiometricData(BiometricData humanBioD, BiometricData passpBioD) throws BiometricVerificationFailedException {
-            if (humanBioD.equals(passpBioD)){
-
-            }else{
-                removeBiometricData();
-                throw new BiometricVerificationFailedException();
-            }
-        }
-        private void removeBiometricData () {
+    }
 
 
-        }
-
-        public void grantExplicitConsent (char cons) {
-
-        }
-        public void readPassport () throws PassportBiometricReader.NotValidPassportException, PassportBiometricReader.PassportBiometricReadingException, BiometricVerificationFailedException, HumanBiometricScanner.HumanBiometricScanningException, ElectoralOrganism.NotEnabledException, ConnectException {
-
-            PassportBiometricReader passport=new PositivePassportBiometricReader();
-            passport.validatePassport();
-            readFaceBiometrics();
-            readFingerPrintBiometrics();
-
-        }
-        public void readFaceBiometrics () throws HumanBiometricScanner.HumanBiometricScanningException {
-            HumanBiometricScanner human=new PositiveHumanBiometricScanner();
-            face=human.scanFaceBiometrics();
-
-        }
-        public void readFingerPrintBiometrics () throws ElectoralOrganism.NotEnabledException, HumanBiometricScanner.HumanBiometricScanningException, BiometricVerificationFailedException, ConnectException {
-            HumanBiometricScanner human=new PositiveHumanBiometricScanner();
-            finger=human.scanFingerprintBiometrics();
-        }
 
 
-        private class BiometricVerificationFailedException extends Exception {
+    public class InvalidDNIDocumException extends Exception {
+        public InvalidDNIDocumException(String print) {
+            System.out.println(print);
         }
     }
+    
+    private class BiometricVerificationFailedException extends Exception {
+    }
+
 
     public class ProceduralException extends Throwable {
     }
