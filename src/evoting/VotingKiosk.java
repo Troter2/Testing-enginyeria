@@ -134,7 +134,7 @@ public class VotingKiosk {
 
     //Part 2
     private void verifiyBiometricData(BiometricData humanBioD, BiometricData passpBioD) throws BiometricVerificationFailedException {
-        if (humanBioD.equals(passpBioD)){
+        if ()){
 
         }else{
             removeBiometricData();
