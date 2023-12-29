@@ -118,7 +118,7 @@ public class TestVotingKiosk {
     }
     @Test
     public void testVoteInvalid(){
-        assertThrows(VotingKiosk.ProceduralExeption.class,() -> votingKiosk.vote());
+        assertThrows(VotingKiosk.ProceduralException.class,() -> votingKiosk.vote());
     }
     @Test
     public void testConfirmVotingOptionValid(){
