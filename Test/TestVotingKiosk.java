@@ -122,7 +122,7 @@ public class TestVotingKiosk {
     }
     @Test
     public void testConfirmVotingOptionValid(){
-        VotingOption vopt1=new VotingOption("PSOE");
+        VotingOption vopt1=new VotingOption("partit1");
         assertDoesNotThrow(() ->  votingKiosk.consultVotingOption(vopt1));
         assertDoesNotThrow(() ->  votingKiosk.vote());
         assertDoesNotThrow(() ->  votingKiosk.confirmVotingOption('a'));

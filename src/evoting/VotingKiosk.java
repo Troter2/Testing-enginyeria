@@ -31,6 +31,7 @@ public class VotingKiosk {
     public VotingKiosk(List opcions){
 
         scrutiny = new ActiveScrutiny();
+        scrutiny.initVoteCount(opcions);
         conditions = new Conditions();
         electoralOrganism = new EnableElectoralOrganism();
         conditions.setEvote_active(true);
