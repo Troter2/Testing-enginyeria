@@ -1,7 +1,7 @@
 package services;
 
 import data.Nif;
-import evoting.votingKiosk;
+import evoting.VotingKiosk;
 
 import java.net.ConnectException;
 

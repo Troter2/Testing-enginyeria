@@ -14,13 +14,18 @@ import java.net.ConnectException;
 /**
  * Internal classes involved in the exercise of the vote
  */
-public class votingKiosk {
+public class VotingKiosk {
     //??? // The class members
     //??? // The constructor/s
     // Input events
     ActiveScrutiny scrutiny = new ActiveScrutiny();
     EnableElectoralOrganism electoralOrganism = new EnableElectoralOrganism();
     Nif curNif;
+
+    public VotingKiosk(){
+        scrutiny = new ActiveScrutiny();
+        EnableElectoralOrganism electoralOrganism1 = new EnableElectoralOrganism();
+    }
 
     VotingOption curVotingOption,vote;
     public void initVoting () {
@@ -104,7 +109,6 @@ public class votingKiosk {
     }
 
 
-
     public void confirmVotingOption (char conf) throws ConnectException {
         System.out.println("Escriviu la lletra 'a' si vols votar " + vote);
         if (conf=='a'){
@@ -113,11 +117,11 @@ public class votingKiosk {
         }else{
             throw new ConnectException("el vot no sa confirmat");
         }
-    }//{ . . .}
+    }
     // Internal operation, not required
     private void finalizeSession () {}
 
-    //(. . .) // Setter methods for injecting dependences and additional methods
+    // Setter methods for injecting dependences and additional methods
     private void increaseVote() {
         scrutiny.scrutinize(vote);
     }
