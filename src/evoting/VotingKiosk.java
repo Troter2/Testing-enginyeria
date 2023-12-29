@@ -29,7 +29,6 @@ public class VotingKiosk {
 
 
     public VotingKiosk(List opcions){
-
         scrutiny = new ActiveScrutiny();
         scrutiny.initVoteCount(opcions);
         conditions = new Conditions();
