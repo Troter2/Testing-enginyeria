@@ -1,8 +1,10 @@
 import data.Nif;
 import data.Password;
 import data.VotingOption;
+import electoralOrganism.EnableElectoralOrganism;
 import evoting.VotingKiosk;
 
+import localService.PositiveLocalService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +25,7 @@ public class TestVotingKiosk {
         opcions.add(new VotingOption("partit2"));
         opcions.add(new VotingOption("partit3"));
         // Inicializar la instancia de VotingKiosk antes de cada prueba
-        votingKiosk = new VotingKiosk(opcions);
+        votingKiosk = new VotingKiosk(opcions, new PositiveLocalService(), new EnableElectoralOrganism());
     }
 
     @Test

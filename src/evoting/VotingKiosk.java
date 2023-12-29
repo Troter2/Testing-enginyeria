@@ -23,12 +23,14 @@ public class VotingKiosk {
     //??? // The constructor/s
     // Input events
     ActiveScrutiny scrutiny = new ActiveScrutiny();
+    LocalService localService;
     Conditions conditions = new Conditions();
-    EnableElectoralOrganism electoralOrganism;
+    ElectoralOrganism electoralOrganism;
     Nif curNif;
 
 
-    public VotingKiosk(List opcions){
+    public VotingKiosk(List opcions, LocalService ls, ElectoralOrganism eo){
+        localService = ls;
         scrutiny = new ActiveScrutiny();
         scrutiny.initVoteCount(opcions);
         conditions = new Conditions();
@@ -59,9 +61,8 @@ public class VotingKiosk {
 
     public void enterAccount (String login, Password pssw)
     {
-        LocalService local = new PositiveLocalService();
         try {
-            local.verifyAccount(login,pssw);
+            localService.verifyAccount(login,pssw);
         } catch (LocalService.InvalidAccountException e) {
             e.printStackTrace();
         }
@@ -85,6 +86,8 @@ public class VotingKiosk {
             curNif=nif;
         } catch (ElectoralOrganism.NotEnabledException e) {
             System.out.println("Aquest usuari ja no pot votar");
+        } catch (ConnectException e) {
+            System.out.println("Error de conexio");
         }
     }
     public void initOptionsNavigation () {
