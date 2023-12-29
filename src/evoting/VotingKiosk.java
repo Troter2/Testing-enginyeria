@@ -148,12 +148,15 @@ public class VotingKiosk {
     public void grantExplicitConsent (char cons) {
 
     }
-    public void readPassport () throws PassportBiometricReader.NotValidPassportException, PassportBiometricReader.PassportBiometricReadingException, BiometricVerificationFailedException, HumanBiometricScanner.HumanBiometricScanningException, ElectoralOrganism.NotEnabledException, ConnectException {
+    public void readPassport () throws PassportBiometricReader.NotValidPassportException, PassportBiometricReader.PassportBiometricReadingException, BiometricVerificationFailedException, HumanBiometricScanner.HumanBiometricScanningException, ElectoralOrganism.NotEnabledException, ConnectException, Nif.InvalidNifException {
 
         PassportBiometricReader passport=new PositivePassportBiometricReader();
         passport.validatePassport();
-        readFaceBiometrics();
-        readFingerPrintBiometrics();
+        passport.getPassportBiometricData();
+        System.out.println("Lectura del passaport correcta.");
+        passport.getNifWithOCR();
+        //readFaceBiometrics();
+       // readFingerPrintBiometrics();
 
     }
     public void readFaceBiometrics () throws HumanBiometricScanner.HumanBiometricScanningException {
