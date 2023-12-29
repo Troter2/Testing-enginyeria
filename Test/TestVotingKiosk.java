@@ -6,7 +6,7 @@ import evoting.VotingKiosk;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.awt.*;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,10 +18,12 @@ public class TestVotingKiosk {
 
     @BeforeEach
     public void setUp() {
-        List<VotingOption> opcions=new List();
-        opcions.add();
+        List opcions=new ArrayList<VotingOption>();
+        opcions.add(new VotingOption("partit1"));
+        opcions.add(new VotingOption("partit2"));
+        opcions.add(new VotingOption("partit3"));
         // Inicializar la instancia de VotingKiosk antes de cada prueba
-        votingKiosk = new VotingKiosk();
+        votingKiosk = new VotingKiosk(opcions);
     }
 
     @Test

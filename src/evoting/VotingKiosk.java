@@ -9,7 +9,7 @@ import electoralOrganism.EnableElectoralOrganism;
 import scrutiny.ActiveScrutiny;
 import services.ElectoralOrganism;
 
-import java.awt.*;
+import java.util.*;
 import java.util.Scanner;
 
 
@@ -24,15 +24,15 @@ public class VotingKiosk {
     // Input events
     ActiveScrutiny scrutiny = new ActiveScrutiny();
     Conditions conditions = new Conditions();
-    EnableElectoralOrganism electoralOrganism = new EnableElectoralOrganism();
+    EnableElectoralOrganism electoralOrganism;
     Nif curNif;
 
 
-    public VotingKiosk(List<VotingOption> opcions){
+    public VotingKiosk(List opcions){
 
         scrutiny = new ActiveScrutiny();
         conditions = new Conditions();
-        EnableElectoralOrganism electoralOrganism1 = new EnableElectoralOrganism();
+        electoralOrganism = new EnableElectoralOrganism();
         conditions.setEvote_active(true);
     }
 
@@ -119,15 +119,15 @@ public class VotingKiosk {
         conditions.setVote_option(true);
         curVotingOption = vopt;
     }
-    public void vote () throws ProceduralExeption {
+    public void vote () throws ProceduralException {
         if(conditions.isEvote_active() && conditions.isVote_option()) {
             conditions.setConfirmed_vote(true);
             vote = curVotingOption;
-        }else throw new ProceduralExeption();
+        }else throw new ProceduralException();
     }
 
 
-    public void confirmVotingOption (char conf) throws ProceduralExeption, ConnectException {
+    public void confirmVotingOption (char conf) throws ProceduralException, ConnectException {
         if(conditions.isEvote_active() && conditions.isVote_option() && conditions.isConfirmed_vote()) {
             System.out.println("Escriviu la lletra 'a' si vols votar " + vote);
             if (conf == 'a') {
@@ -136,7 +136,7 @@ public class VotingKiosk {
             } else {
                 throw new ConnectException("el vot no sa confirmat");
             }
-        }else{throw new ProceduralExeption();}
+        }else{throw new ProceduralException();}
     }
     // Internal operation, not required
     private void finalizeSession () {
@@ -149,8 +149,6 @@ public class VotingKiosk {
         scrutiny.scrutinize(vote);
     }
 
-    private class InvalidAccountException extends Exception {
-    }
 
     public class InvalidDNIDocumException extends Exception {
         public InvalidDNIDocumException(String print) {
@@ -158,8 +156,6 @@ public class VotingKiosk {
         }
     }
 
-    private class NotEnabledException extends Exception {
-    }
     class Conditions{
         boolean evote_active;
         boolean vote_option;
@@ -195,6 +191,6 @@ public class VotingKiosk {
         }
     }
 
-    public class ProceduralExeption extends Throwable {
+    public class ProceduralException extends Throwable {
     }
 }
