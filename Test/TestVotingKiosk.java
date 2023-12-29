@@ -127,6 +127,14 @@ public class TestVotingKiosk {
         assertDoesNotThrow(() ->  votingKiosk.vote());
         assertDoesNotThrow(() ->  votingKiosk.confirmVotingOption('a'));
     }
+    @Test
+    public void testConfirmVotingOptionInvalid(){
+        assertThrows(VotingKiosk.ProceduralException.class,() -> votingKiosk.confirmVotingOption('a'));
+        VotingOption vopt1=new VotingOption("partit1");
+        assertDoesNotThrow(() ->  votingKiosk.consultVotingOption(vopt1));
+        assertDoesNotThrow(() ->  votingKiosk.vote());
+        assertThrows(java.net.ConnectException.class,() -> votingKiosk.confirmVotingOption('d'));
+    }
 
     // Método de utilidad para capturar la salida de la consola
     private String getConsoleOutput(Runnable action) {

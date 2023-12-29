@@ -97,24 +97,7 @@ public class VotingKiosk {
         System.out.println("a. Veure les opcions de vot disponibles");
         System.out.println("b. Començar a votar");
         System.out.println("c. Sortir");
-
-       /* char entradaUsuari = obtenirEntradaUsuari();
-
-        switch (entradaUsuari) {
-            case 'a':
-                mostrarOpcionsVot();
-                break;
-            case 'b':
-                iniciarVotacio();
-                break;
-            case 'c':
-                sortirSistemaVotacio();
-                break;
-            default:
-                System.out.println("Opció no vàlida. Si us plau, torna a intentar.");
-                initOptionsNavigation(); // Crida recursiva per gestionar una entrada no vàlida
-                break;
-        }*/
+        
     }
     public void consultVotingOption (VotingOption vopt) {
         conditions.setVote_option(true);
