@@ -146,15 +146,20 @@ public class VotingKiosk {
     }
 
     public void grantExplicitConsent (char cons) {
+        conditions.setExplicitConsent(true);
 
     }
     public void readPassport () throws PassportBiometricReader.NotValidPassportException, PassportBiometricReader.PassportBiometricReadingException, BiometricVerificationFailedException, HumanBiometricScanner.HumanBiometricScanningException, ElectoralOrganism.NotEnabledException, ConnectException, Nif.InvalidNifException {
+        if(!conditions.hasExplicitConsent()) {
+            System.out.println("No tenim permis per llegir el passaport");
+        }else {
 
-        PassportBiometricReader passport=new PositivePassportBiometricReader();
-        passport.validatePassport();
-        passport.getPassportBiometricData();
-        System.out.println("Lectura del passaport correcta.");
-        passport.getNifWithOCR();
+            PassportBiometricReader passport = new PositivePassportBiometricReader();
+            passport.validatePassport();
+            passport.getPassportBiometricData();
+            System.out.println("Lectura del passaport correcta.");
+            passport.getNifWithOCR();
+        }
         //readFaceBiometrics();
        // readFingerPrintBiometrics();
 
@@ -183,6 +188,21 @@ public class VotingKiosk {
             fingerBiometrics = false;
         }
 
+        public boolean hasExplicitConsent(){
+            return explicitConsent;
+        }
+        public void setExplicitConsent(boolean explicitConsent) {
+            this.explicitConsent = explicitConsent;
+        }
+
+        public void setFaceBiometrics(boolean faceBiometrics) {
+            this.faceBiometrics = faceBiometrics;
+        }
+
+        public void setFingerBiometrics(boolean fingerBiometrics) {
+            this.fingerBiometrics = fingerBiometrics;
+        }
+
         public void setEvote_active(boolean evote_active) {
             this.evote_active = evote_active;
         }
@@ -209,18 +229,18 @@ public class VotingKiosk {
     }
 
 
-
+//Excepcions
 
     public class InvalidDNIDocumException extends Exception {
         public InvalidDNIDocumException(String print) {
             System.out.println(print);
         }
     }
-    
+
     private class BiometricVerificationFailedException extends Exception {
     }
 
 
-    public class ProceduralException extends Throwable {
+    public class ProceduralException extends Exception {
     }
 }
