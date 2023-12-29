@@ -1,6 +1,7 @@
 package evoting;
 
 import biometric.PositivePassportBiometricReader;
+import biometric.PositiveHumanBiometricScanner;
 import data.*;
 import evoting.biometricdataperipheral.HumanBiometricScanner;
 import evoting.biometricdataperipheral.PassportBiometricReader;
@@ -26,7 +27,8 @@ public class VotingKiosk {
     Conditions conditions = new Conditions();
     ElectoralOrganism electoralOrganism;
     Nif curNif;
-
+    SingleBiometricData face;
+    SingleBiometricData finger;
 
     public VotingKiosk(List opcions, LocalService ls, ElectoralOrganism eo){
         localService = ls;
@@ -189,6 +191,7 @@ public class VotingKiosk {
 
         }
         public void readPassport () throws PassportBiometricReader.NotValidPassportException, PassportBiometricReader.PassportBiometricReadingException, BiometricVerificationFailedException, HumanBiometricScanner.HumanBiometricScanningException, ElectoralOrganism.NotEnabledException, ConnectException {
+
             PassportBiometricReader passport=new PositivePassportBiometricReader();
             passport.validatePassport();
             readFaceBiometrics();
@@ -196,10 +199,13 @@ public class VotingKiosk {
 
         }
         public void readFaceBiometrics () throws HumanBiometricScanner.HumanBiometricScanningException {
+            HumanBiometricScanner human=new PositiveHumanBiometricScanner();
+            face=human.scanFaceBiometrics();
 
         }
         public void readFingerPrintBiometrics () throws ElectoralOrganism.NotEnabledException, HumanBiometricScanner.HumanBiometricScanningException, BiometricVerificationFailedException, ConnectException {
-
+            HumanBiometricScanner human=new PositiveHumanBiometricScanner();
+            finger=human.scanFingerprintBiometrics();
         }
 
 
