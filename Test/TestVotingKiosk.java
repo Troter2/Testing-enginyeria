@@ -3,8 +3,7 @@ import evoting.VotingKiosk;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestVotingKiosk {
 
@@ -31,11 +30,19 @@ public class TestVotingKiosk {
 
     @Test
     public void testSetDocumentInvalid() {
-        // Probar la selección de un documento inválido
-        votingKiosk.setDocument('z');  // Una opción inválida
-        fail("Se esperaba una excepción para una opción de documento inválida");
-    }
+        // Redirige la salida de la consola para capturarla
+        java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
+        System.setOut(new java.io.PrintStream(out));
 
+        // Ejecuta la acción que debería imprimir el mensaje de "Opció invalida"
+        votingKiosk.setDocument('z');  // Una opción inválida
+
+        // Restablece la salida estándar
+        System.setOut(System.out);
+
+        // Verifica que la salida contenga el mensaje esperado
+        assertEquals("Opció invalida", out.toString().trim());
+    }
 
     // Método de utilidad para capturar la salida de la consola
     private String getConsoleOutput(Runnable action) {

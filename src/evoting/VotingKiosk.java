@@ -29,8 +29,8 @@ public class VotingKiosk {
 
     VotingOption curVotingOption,vote;
     public void initVoting () {
-        System.out.println("Benvingut a la plataforma de votació electrònica.");
-        System.out.println("Si us plau, segueix les instruccions per començar el procés de votació.");
+        System.out.println("Benvingut a la plataforma de votació electrònica.\n" +
+                "Si us plau, segueix les instruccions per començar el procés de votació.");
     }
     public void setDocument (char opt) {
         if(opt=='a'){
@@ -43,7 +43,8 @@ public class VotingKiosk {
 
         }else if(opt=='b'){
             //selecionar el passaport
-
+        } else {
+            System.out.println("Opció invalida");
         }
     }
 
