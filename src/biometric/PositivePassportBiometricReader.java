@@ -1,4 +1,4 @@
-package Biometric;
+package biometric;
 
 import data.BiometricData;
 import data.Nif;

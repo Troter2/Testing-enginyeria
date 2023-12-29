@@ -1,17 +1,15 @@
 package evoting;
 
-import Biometric.PositivePassportBiometricReader;
+import biometric.PositivePassportBiometricReader;
 import data.*;
 import evoting.biometricdataperipheral.HumanBiometricScanner;
 import evoting.biometricdataperipheral.PassportBiometricReader;
-import localService.PositiveLocalService;
 import services.LocalService;
 import electoralOrganism.EnableElectoralOrganism;
 import scrutiny.ActiveScrutiny;
 import services.ElectoralOrganism;
 
 import java.util.*;
-import java.util.Scanner;
 
 
 import java.net.ConnectException;
@@ -190,19 +188,17 @@ public class VotingKiosk {
         public void grantExplicitConsent (char cons) {
 
         }
-        public void readPassport () throws PassportBiometricReader.NotValidPassportException, PassportBiometricReader.PassportBiometricReadingException
-        {
+        public void readPassport () throws PassportBiometricReader.NotValidPassportException, PassportBiometricReader.PassportBiometricReadingException, BiometricVerificationFailedException, HumanBiometricScanner.HumanBiometricScanningException, ElectoralOrganism.NotEnabledException, ConnectException {
             PassportBiometricReader passport=new PositivePassportBiometricReader();
             passport.validatePassport();
+            readFaceBiometrics();
+            readFingerPrintBiometrics();
 
         }
-        public void readFaceBiometrics () throws HumanBiometricScanner.HumanBiometricScanningException
-        {
+        public void readFaceBiometrics () throws HumanBiometricScanner.HumanBiometricScanningException {
 
         }
-        public void readFingerPrintBiometrics () throws ElectoralOrganism.NotEnabledException, HumanBiometricScanner.HumanBiometricScanningException,
-                BiometricVerificationFailedException, ConnectException
-        {
+        public void readFingerPrintBiometrics () throws ElectoralOrganism.NotEnabledException, HumanBiometricScanner.HumanBiometricScanningException, BiometricVerificationFailedException, ConnectException {
 
         }
 
