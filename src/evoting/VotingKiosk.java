@@ -134,9 +134,10 @@ public class VotingKiosk {
 
     //Part 2
     private void verifiyBiometricData(BiometricData humanBioD, BiometricData passpBioD) throws BiometricVerificationFailedException {
-        if ()){
 
-        }else{
+        if (humanBioD.equals(passpBioD)) {
+            
+        } else {
             removeBiometricData();
             throw new BiometricVerificationFailedException();
         }
@@ -190,6 +191,12 @@ public class VotingKiosk {
 
         public boolean hasExplicitConsent(){
             return explicitConsent;
+        }
+        public boolean hasFaceBiometrics(){
+            return faceBiometrics;
+        }
+        public boolean hasFingerBiometrics(){
+            return fingerBiometrics;
         }
         public void setExplicitConsent(boolean explicitConsent) {
             this.explicitConsent = explicitConsent;
