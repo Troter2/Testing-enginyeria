@@ -1,5 +1,6 @@
 package evoting;
 
+import Biometric.PositivePassportBiometricReader;
 import data.*;
 import evoting.biometricdataperipheral.HumanBiometricScanner;
 import evoting.biometricdataperipheral.PassportBiometricReader;
@@ -182,7 +183,7 @@ public class VotingKiosk {
             }
         }
         private void removeBiometricData () {
-            PassportBiometricReader passport=new PassportBiometric();
+
 
         }
 
@@ -191,7 +192,8 @@ public class VotingKiosk {
         }
         public void readPassport () throws PassportBiometricReader.NotValidPassportException, PassportBiometricReader.PassportBiometricReadingException
         {
-
+            PassportBiometricReader passport=new PositivePassportBiometricReader();
+            passport.validatePassport();
 
         }
         public void readFaceBiometrics () throws HumanBiometricScanner.HumanBiometricScanningException
