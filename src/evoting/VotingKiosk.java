@@ -8,6 +8,8 @@ import services.LocalService;
 import electoralOrganism.EnableElectoralOrganism;
 import scrutiny.ActiveScrutiny;
 import services.ElectoralOrganism;
+import java.util.Scanner;
+
 
 import java.net.ConnectException;
 
@@ -31,6 +33,10 @@ public class VotingKiosk {
     public void initVoting () {
         System.out.println("Benvingut a la plataforma de votació electrònica.\n" +
                 "Si us plau, segueix les instruccions per començar el procés de votació.");
+        Scanner scanner=new Scanner(System.in);
+        char opt=scanner.next().charAt(0);
+        System.out.println("selecioneu el tipus de document: 'a' per a DNI i 'b' per a passaport");
+        setDocument(opt);
     }
     public void setDocument (char opt) {
         if(opt=='a'){
