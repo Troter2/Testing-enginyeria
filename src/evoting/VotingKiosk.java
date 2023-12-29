@@ -41,10 +41,6 @@ public class VotingKiosk {
     public void initVoting () {
         System.out.println("Benvingut a la plataforma de votació electrònica.\n" +
                 "Si us plau, segueix les instruccions per començar el procés de votació.");
-        Scanner scanner=new Scanner(System.in);
-        char opt=scanner.next().charAt(0);
-        System.out.println("selecioneu el tipus de document: 'a' per a DNI i 'b' per a passaport");
-        setDocument(opt);
     }
     public void setDocument (char opt) {
         if(opt=='a'){
@@ -97,7 +93,7 @@ public class VotingKiosk {
         System.out.println("a. Veure les opcions de vot disponibles");
         System.out.println("b. Començar a votar");
         System.out.println("c. Sortir");
-        
+
     }
     public void consultVotingOption (VotingOption vopt) {
         conditions.setVote_option(true);
