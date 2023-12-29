@@ -21,12 +21,15 @@ public class VotingKiosk {
     //??? // The constructor/s
     // Input events
     ActiveScrutiny scrutiny = new ActiveScrutiny();
+    Conditions conditions = new Conditions();
     EnableElectoralOrganism electoralOrganism = new EnableElectoralOrganism();
     Nif curNif;
 
     public VotingKiosk(){
         scrutiny = new ActiveScrutiny();
+        conditions = new Conditions();
         EnableElectoralOrganism electoralOrganism1 = new EnableElectoralOrganism();
+        conditions.setEvote_active(true);
     }
 
     VotingOption curVotingOption,vote;
@@ -109,21 +112,27 @@ public class VotingKiosk {
         }*/
     }
     public void consultVotingOption (VotingOption vopt) {
+        conditions.setVote_option(true);
         curVotingOption = vopt;
     }
-    public void vote () {
-        vote = curVotingOption;
+    public void vote () throws ProceduralExeption {
+        if(conditions.isEvote_active() && conditions.isVote_option()) {
+            conditions.setConfirmed_vote(true);
+            vote = curVotingOption;
+        }else throw new ProceduralExeption();
     }
 
 
-    public void confirmVotingOption (char conf) throws ConnectException {
-        System.out.println("Escriviu la lletra 'a' si vols votar " + vote);
-        if (conf=='a'){
-            increaseVote();
-            electoralOrganism.disableVoter(curNif);
-        }else{
-            throw new ConnectException("el vot no sa confirmat");
-        }
+    public void confirmVotingOption (char conf) throws ProceduralExeption, ConnectException {
+        if(conditions.isEvote_active() && conditions.isVote_option() && conditions.isConfirmed_vote()) {
+            System.out.println("Escriviu la lletra 'a' si vols votar " + vote);
+            if (conf == 'a') {
+                increaseVote();
+                electoralOrganism.disableVoter(curNif);
+            } else {
+                throw new ConnectException("el vot no sa confirmat");
+            }
+        }else{throw new ProceduralExeption();}
     }
     // Internal operation, not required
     private void finalizeSession () {}
@@ -143,5 +152,42 @@ public class VotingKiosk {
     }
 
     private class NotEnabledException extends Exception {
+    }
+    class Conditions{
+        boolean evote_active;
+        boolean vote_option;
+        boolean confirmed_vote;
+        public Conditions(){
+            evote_active = false;
+            vote_option = false;
+            confirmed_vote = false;
+        }
+
+        public void setEvote_active(boolean evote_active) {
+            this.evote_active = evote_active;
+        }
+
+        public void setConfirmed_vote(boolean confirmed_vote) {
+            this.confirmed_vote = confirmed_vote;
+        }
+
+        public void setVote_option(boolean vote_option) {
+            this.vote_option = vote_option;
+        }
+
+        public boolean isConfirmed_vote() {
+            return confirmed_vote;
+        }
+
+        public boolean isEvote_active() {
+            return evote_active;
+        }
+
+        public boolean isVote_option() {
+            return vote_option;
+        }
+    }
+
+    public class ProceduralExeption extends Throwable {
     }
 }
