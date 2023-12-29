@@ -7,12 +7,12 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestData {
     @Test
     // Pruebas para la clase Nif
-    public void testNif() {
+    void testNif() {
         // Caso de prueba 1: NIF válido
         assertDoesNotThrow(() -> new Nif("12345678N"));
 
         // Caso de prueba 2: NIF con longitud incorrecta
-        assertThrows(Nif.InvalidNifException.class, () -> new Nif("12356789"));
+        assertThrows(Nif.InvalidNifException.class, () -> new Nif("123456789X"));
 
         // Caso de prueba 3: NIF con formato incorrecto (letra en posición incorrecta)
         assertThrows(Nif.InvalidNifException.class, () -> new Nif("1234567X8"));
@@ -25,7 +25,7 @@ public class TestData {
     }
     @Test
     // Pruebas para la clase Password
-    public void testPassword() {
+    void testPassword() {
         // Caso de prueba 1: Contraseña válida
         assertDoesNotThrow(() -> new Password("Abcd123"));
 
