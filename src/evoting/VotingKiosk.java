@@ -1,8 +1,11 @@
 package evoting;
 
+import data.BiometricData;
 import data.Nif;
 import data.Password;
 import data.VotingOption;
+import evoting.biometricdataperipheral.HumanBiometricScanner;
+import evoting.biometricdataperipheral.PassportBiometricReader;
 import localService.PositiveLocalService;
 import services.LocalService;
 import electoralOrganism.EnableElectoralOrganism;
@@ -170,6 +173,33 @@ public class VotingKiosk {
 
         public boolean isVote_option() {
             return vote_option;
+        }
+
+        //Part 2
+        private void verifiyBiometricData(BiometricData humanBioD, BiometricData passpBioD) throws BiometricVerificationFailedException {
+
+        }
+        private void removeBiometricData () {
+
+        }
+
+        public void grantExplicitConsent (char cons) { . . . }
+        public void readPassport () throws PassportBiometricReader.NotValidPassportException, PassportBiometricReader.PassportBiometricReadingException
+        {
+
+        }
+        public void readFaceBiometrics () throws HumanBiometricScanner.HumanBiometricScanningException
+        {
+
+        }
+        public void readFingerPrintBiometrics () throws ElectoralOrganism.NotEnabledException, HumanBiometricScanner.HumanBiometricScanningException,
+                BiometricVerificationFailedException, ConnectException
+        {
+
+        }
+
+
+        private class BiometricVerificationFailedException extends Exception {
         }
     }
 
