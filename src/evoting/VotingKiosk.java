@@ -8,6 +8,8 @@ import services.LocalService;
 import electoralOrganism.EnableElectoralOrganism;
 import scrutiny.ActiveScrutiny;
 import services.ElectoralOrganism;
+
+import java.awt.*;
 import java.util.Scanner;
 
 
@@ -25,7 +27,9 @@ public class VotingKiosk {
     EnableElectoralOrganism electoralOrganism = new EnableElectoralOrganism();
     Nif curNif;
 
-    public VotingKiosk(){
+
+    public VotingKiosk(List<VotingOption> opcions){
+
         scrutiny = new ActiveScrutiny();
         conditions = new Conditions();
         EnableElectoralOrganism electoralOrganism1 = new EnableElectoralOrganism();
@@ -135,10 +139,13 @@ public class VotingKiosk {
         }else{throw new ProceduralExeption();}
     }
     // Internal operation, not required
-    private void finalizeSession () {}
+    private void finalizeSession () {
+
+    }
 
     // Setter methods for injecting dependences and additional methods
     private void increaseVote() {
+        //scrutiny.
         scrutiny.scrutinize(vote);
     }
 

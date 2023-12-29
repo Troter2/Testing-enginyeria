@@ -16,7 +16,7 @@ public class ActiveScrutiny implements Scrutiny {
     @Override
     public void initVoteCount(List<VotingOption> validParties) {
         votes.put(new VotingOption("null"), 0);
-        votes.put(new VotingOption("blank"), 0);
+        votes.put(new VotingOption("blanc"), 0);
         for (VotingOption option : validParties){
             votes.put(option, 0);
         }
