@@ -129,7 +129,7 @@ public class VotingKiosk {
     private class InvalidAccountException extends Exception {
     }
 
-    private class InvalidDNIDocumException extends Exception {
+    public class InvalidDNIDocumException extends Exception {
         public InvalidDNIDocumException(String print) {
             System.out.println(print);
         }
