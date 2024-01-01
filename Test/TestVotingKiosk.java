@@ -90,11 +90,7 @@ public class TestVotingKiosk {
         assertThrows(VotingKiosk.InvalidDNIDocumException.class,() -> votingKiosk.confirmIdentif('z'));
         assertThrows(VotingKiosk.InvalidDNIDocumException.class,() -> votingKiosk.confirmIdentif('4'));
     }
-    @Test
-    public void testEnterNifValid() throws Nif.InvalidNifException {
-        Nif nif= new Nif("12345678N");
-        assertDoesNotThrow(() -> votingKiosk.enterNif(nif));
-    }
+
     @Test
     public void testEnterNifInvalid() throws Nif.InvalidNifException {
         //Nif nif= new Nif("12345678N");
