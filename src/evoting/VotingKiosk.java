@@ -19,8 +19,6 @@ import java.net.ConnectException;
  * Internal classes involved in the exercise of the vote
  */
 public class VotingKiosk {
-    //??? // The class members
-    //??? // The constructor/s
     // Input events
     ActiveScrutiny scrutiny = new ActiveScrutiny();
     LocalService localService;
@@ -121,31 +119,26 @@ public class VotingKiosk {
         }else{throw new ProceduralException();}
     }
     // Internal operation, not required
-    private void finalizeSession () {
-
-    }
-
     // Setter methods for injecting dependences and additional methods
+
     private void increaseVote() {
         //scrutiny.
         scrutiny.scrutinize(vote);
     }
-
     //Part 2
+
     private void verifiyBiometricData(BiometricData humanBioD, BiometricData passpBioD) throws BiometricVerificationFailedException {
 
-        if (humanBioD.equals(passpBioD)) {
-            
-        } else {
+        if (!humanBioD.equals(passpBioD)) {
             removeBiometricData();
             throw new BiometricVerificationFailedException();
         }
+        System.out.println("Los datos biometricos encajan");
     }
     public void grantExplicitConsent (char cons) {
         conditions.setExplicitConsent(true);
 
     }
-
     public void readPassport () throws PassportBiometricReader.NotValidPassportException, PassportBiometricReader.PassportBiometricReadingException, BiometricVerificationFailedException, HumanBiometricScanner.HumanBiometricScanningException, ElectoralOrganism.NotEnabledException, ConnectException, Nif.InvalidNifException {
         if(!conditions.hasExplicitConsent()) {
             System.out.println("No tenim permis per llegir el passaport");
@@ -158,9 +151,10 @@ public class VotingKiosk {
             passport.getNifWithOCR();
         }
         //readFaceBiometrics();
-       // readFingerPrintBiometrics();
+        // readFingerPrintBiometrics();
 
     }
+
     public void readFaceBiometrics () throws HumanBiometricScanner.HumanBiometricScanningException {
         HumanBiometricScanner human=new PositiveHumanBiometricScanner();
         face=human.scanFaceBiometrics();
@@ -170,8 +164,12 @@ public class VotingKiosk {
         HumanBiometricScanner human=new PositiveHumanBiometricScanner();
         finger=human.scanFingerprintBiometrics();
     }
-
     private void removeBiometricData () {
+        this.face = null;
+        this.finger = null;
+    }
+
+    private void finalizeSession () {
 
     }
 
