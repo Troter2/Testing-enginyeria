@@ -84,17 +84,17 @@ public class TestVotingKiosk {
         assertThrows(VotingKiosk.InvalidDNIDocumException.class,() -> votingKiosk.confirmIdentif('4'));
     }
 
-    
+
     @Test
     public void testConsultVotingOptionValid() {
-        VotingOption vopt1 = new VotingOption("PSOE");
-        VotingOption vopt2 = new VotingOption("PEPE");
+        VotingOption vopt1 = new VotingOption("partit1");
+        VotingOption vopt2 = new VotingOption("partit2");
         assertDoesNotThrow(() -> votingKiosk.consultVotingOption(vopt1));
         assertDoesNotThrow(() -> votingKiosk.consultVotingOption(vopt2));
     }
     @Test
     public void testVoteValid(){
-        VotingOption vopt1=new VotingOption("PSOE");
+        VotingOption vopt1=new VotingOption("partit1");
         assertDoesNotThrow(() ->  votingKiosk.consultVotingOption(vopt1));
         assertDoesNotThrow(() ->  votingKiosk.vote());
     }
