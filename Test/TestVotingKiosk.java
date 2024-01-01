@@ -67,7 +67,6 @@ public class TestVotingKiosk {
         assertDoesNotThrow(() -> votingKiosk.enterAccount(name,psw));
     }
     @Test
-    // todo: pa fer
     public void testEnterAccountInvalid() throws Password.InvalidPasswordException {
    //    java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
    //    System.setOut(new java.io.PrintStream(out));
@@ -130,7 +129,6 @@ public class TestVotingKiosk {
 
     }
     @Test
-    // todo: pa fer
     public void testConsultVotingOptionInvalid(){
 
     }
