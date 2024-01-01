@@ -1,5 +1,7 @@
 package data;
 
+import exceptions.InvalidNifException;
+
 public class Nif {
     private final String nif;
 
@@ -33,9 +35,5 @@ public class Nif {
         return this.nif.equals(other.nif);
     }
 
-    public static class InvalidNifException extends Exception {
-        public InvalidNifException(String msg) {
-            super(msg);
-        }
-    }
+
 }

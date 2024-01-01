@@ -2,6 +2,7 @@ package biometric;
 
 import data.SingleBiometricData;
 import evoting.biometricdataperipheral.HumanBiometricScanner;
+import exceptions.HumanBiometricScanningException;
 
 public class NegativeHumanBiometricScanner implements HumanBiometricScanner {
     byte[] byt= new byte[1];

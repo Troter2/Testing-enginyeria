@@ -1,10 +1,12 @@
 package evoting;
 
+import biometric.NegativePassportBiometricReader;
 import biometric.PositivePassportBiometricReader;
 import biometric.PositiveHumanBiometricScanner;
 import data.*;
 import evoting.biometricdataperipheral.HumanBiometricScanner;
 import evoting.biometricdataperipheral.PassportBiometricReader;
+import exceptions.*;
 import services.LocalService;
 import electoralOrganism.EnableElectoralOrganism;
 import scrutiny.ActiveScrutiny;
@@ -82,7 +84,7 @@ public class VotingKiosk {
         try {
             electoralOrganism.canVote(nif);
             curNif = nif;
-        } catch (ElectoralOrganism.NotEnabledException e) {
+        } catch (NotEnabledException e) {
             throw new VotingKiosk.InvalidDNIDocumException("Aquest usuari ja no pot votar");
         } catch (ConnectException e) {
             System.out.println("Error de conexión");
@@ -139,7 +141,7 @@ public class VotingKiosk {
         conditions.setExplicitConsent(true);
 
     }
-    public void readPassport () throws PassportBiometricReader.NotValidPassportException, PassportBiometricReader.PassportBiometricReadingException, BiometricVerificationFailedException, HumanBiometricScanner.HumanBiometricScanningException, ElectoralOrganism.NotEnabledException, ConnectException, Nif.InvalidNifException {
+    public void readPassport () throws PassportBiometricReadingException, BiometricVerificationFailedException, HumanBiometricScanningException, NotEnabledException, ConnectException, InvalidNifException, NotValidPassportException  {
         if(!conditions.hasExplicitConsent()) {
             System.out.println("No tenim permis per llegir el passaport");
         }else {
@@ -155,12 +157,12 @@ public class VotingKiosk {
 
     }
 
-    public void readFaceBiometrics () throws HumanBiometricScanner.HumanBiometricScanningException {
+    public void readFaceBiometrics () throws HumanBiometricScanningException {
         HumanBiometricScanner human=new PositiveHumanBiometricScanner();
         face=human.scanFaceBiometrics();
 
     }
-    public void readFingerPrintBiometrics () throws ElectoralOrganism.NotEnabledException, HumanBiometricScanner.HumanBiometricScanningException, BiometricVerificationFailedException, ConnectException {
+    public void readFingerPrintBiometrics () throws NotEnabledException, HumanBiometricScanningException, BiometricVerificationFailedException, ConnectException {
         HumanBiometricScanner human=new PositiveHumanBiometricScanner();
         finger=human.scanFingerprintBiometrics();
     }

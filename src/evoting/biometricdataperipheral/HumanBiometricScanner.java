@@ -1,6 +1,7 @@
 package evoting.biometricdataperipheral;
 
 import data.SingleBiometricData;
+import exceptions.HumanBiometricScanningException;
 
 /**
  * Peripherals for reading and scanning biometric data
@@ -11,6 +12,5 @@ public interface HumanBiometricScanner {// Peripheral for scanning human biometr
     SingleBiometricData scanFingerprintBiometrics ()
             throws HumanBiometricScanningException;
 
-    class HumanBiometricScanningException extends Exception {
-    }
+
 }
