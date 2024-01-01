@@ -7,7 +7,9 @@ import evoting.VotingKiosk;
 import localService.PositiveLocalService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import services.ElectoralOrganism;
 
+import java.net.ConnectException;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -65,6 +67,7 @@ public class TestVotingKiosk {
         assertDoesNotThrow(() -> votingKiosk.enterAccount(name,psw));
     }
     @Test
+    // todo: pa fer
     public void testEnterAccountInvalid() throws Password.InvalidPasswordException {
    //    java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
    //    System.setOut(new java.io.PrintStream(out));
@@ -93,9 +96,31 @@ public class TestVotingKiosk {
 
     @Test
     public void testEnterNifInvalid() throws Nif.InvalidNifException {
-        //Nif nif= new Nif("12345678N");
 
+        // Intenta ingresar un NIF que cause una NotEnabledException
+        Nif nifNotEnabled = new Nif("12456789X");
+        try {
+            votingKiosk.enterNif(nifNotEnabled);
+            // Si no se lanza la excepción, la prueba falla
+            fail("Se esperaba InvalidDNIDocumException pero no se lanzó ninguna excepción");
+        } catch (VotingKiosk.InvalidDNIDocumException e) {
+            // Comportamiento esperado
+            System.out.println("Aquest usuari ja no pot votar");
+        }
+
+        // Intenta ingresar un NIF que cause una ConnectException
+        Nif nifConnectException = new Nif("12456789X");
+        try {
+            votingKiosk.enterNif(nifConnectException);
+            // Si no se lanza la excepción, la prueba falla
+            fail("Se esperaba InvalidDNIDocumException pero no se lanzó ninguna excepción");
+        } catch (VotingKiosk.InvalidDNIDocumException e) {
+            // Comportamiento esperado
+            System.out.println("Error de conexión");
+        }
     }
+
+
     @Test
     public void testConsultVotingOptionValid(){
         VotingOption vopt1=new VotingOption("PSOE");
@@ -105,6 +130,7 @@ public class TestVotingKiosk {
 
     }
     @Test
+    // todo: pa fer
     public void testConsultVotingOptionInvalid(){
 
     }

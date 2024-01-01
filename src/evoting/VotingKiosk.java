@@ -80,15 +80,16 @@ public class VotingKiosk {
             throw new InvalidDNIDocumException("El Nif no es valid");
         }
     }
-    public void enterNif (Nif nif)
-    {
+    public void enterNif(Nif nif) throws InvalidDNIDocumException {
         try {
             electoralOrganism.canVote(nif);
-            curNif=nif;
+            curNif = nif;
         } catch (ElectoralOrganism.NotEnabledException e) {
             System.out.println("Aquest usuari ja no pot votar");
+            throw new VotingKiosk.InvalidDNIDocumException("Aquest usuari ja no pot votar");
         } catch (ConnectException e) {
-            System.out.println("Error de conexio");
+            System.out.println("Error de conexión");
+            throw new VotingKiosk.InvalidDNIDocumException("Error de conexión");
         }
     }
     public void initOptionsNavigation () {
