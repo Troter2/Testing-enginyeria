@@ -28,15 +28,19 @@ public class VotingKiosk {
     ElectoralOrganism electoralOrganism;
     Nif curNif;
     SingleBiometricData face;
+    PassportBiometricReader pbr;
+    HumanBiometricScanner hbs;
     SingleBiometricData finger;
 
-    public VotingKiosk(List opcions, LocalService ls, ElectoralOrganism eo){
+    public VotingKiosk(List opcions, LocalService ls, ElectoralOrganism eo, PassportBiometricReader pbr, HumanBiometricScanner hbs){
         localService = ls;
         scrutiny = new ActiveScrutiny();
         scrutiny.initVoteCount(opcions);
         conditions = new Conditions();
         electoralOrganism = eo;
         conditions.setEvote_active(true);
+        this.pbr = pbr;
+        this.hbs = hbs;
     }
 
     VotingOption curVotingOption,vote;
@@ -85,7 +89,7 @@ public class VotingKiosk {
             electoralOrganism.canVote(nif);
             curNif = nif;
         } catch (NotEnabledException e) {
-            throw new VotingKiosk.InvalidDNIDocumException("Aquest usuari ja no pot votar");
+            throw new InvalidDNIDocumException("Aquest usuari ja no pot votar");
         } catch (ConnectException e) {
             System.out.println("Error de conexión");
         }
@@ -129,9 +133,9 @@ public class VotingKiosk {
     }
     //Part 2
 
-    private void verifiyBiometricData(BiometricData humanBioD, BiometricData passpBioD) throws BiometricVerificationFailedException {
+    public void verifiyBiometricData(BiometricData humanBioD, BiometricData passpBioD) throws BiometricVerificationFailedException {
 
-        if (!humanBioD.equals(passpBioD)) {
+        if (!humanBioD.compare(passpBioD)) {
             removeBiometricData();
             throw new BiometricVerificationFailedException();
         }
@@ -141,30 +145,27 @@ public class VotingKiosk {
         conditions.setExplicitConsent(true);
 
     }
-    public void readPassport () throws PassportBiometricReadingException, BiometricVerificationFailedException, HumanBiometricScanningException, NotEnabledException, ConnectException, InvalidNifException, NotValidPassportException  {
+    public void readPassport () throws PassportBiometricReadingException, NotValidPassportException  {
         if(!conditions.hasExplicitConsent()) {
             System.out.println("No tenim permis per llegir el passaport");
         }else {
-
-            PassportBiometricReader passport = new PositivePassportBiometricReader();
-            passport.validatePassport();
-            passport.getPassportBiometricData();
+            pbr.validatePassport();
+            pbr.getPassportBiometricData();
             System.out.println("Lectura del passaport correcta.");
-            passport.getNifWithOCR();
+            try {
+                pbr.getNifWithOCR();
+            } catch (InvalidNifException e) {
+                throw new RuntimeException(e);
+            }
         }
-        //readFaceBiometrics();
-        // readFingerPrintBiometrics();
-
     }
 
     public void readFaceBiometrics () throws HumanBiometricScanningException {
-        HumanBiometricScanner human=new PositiveHumanBiometricScanner();
-        face=human.scanFaceBiometrics();
+        face=hbs.scanFaceBiometrics();
 
     }
     public void readFingerPrintBiometrics () throws NotEnabledException, HumanBiometricScanningException, BiometricVerificationFailedException, ConnectException {
-        HumanBiometricScanner human=new PositiveHumanBiometricScanner();
-        finger=human.scanFingerprintBiometrics();
+        finger=hbs.scanFingerprintBiometrics();
     }
     private void removeBiometricData () {
         this.face = null;
@@ -173,23 +174,5 @@ public class VotingKiosk {
 
     private void finalizeSession () {
 
-    }
-
-
-
-
-//Excepcions
-
-    public class InvalidDNIDocumException extends Exception {
-        public InvalidDNIDocumException(String print) {
-            System.out.println(print);
-        }
-    }
-
-    private class BiometricVerificationFailedException extends Exception {
-    }
-
-
-    public class ProceduralException extends Exception {
     }
 }

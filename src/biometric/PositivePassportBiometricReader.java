@@ -2,6 +2,7 @@ package biometric;
 
 import data.BiometricData;
 import data.Nif;
+import data.SingleBiometricData;
 import evoting.biometricdataperipheral.PassportBiometricReader;
 import exceptions.InvalidNifException;
 import exceptions.NotValidPassportException;
@@ -24,6 +25,6 @@ public class PositivePassportBiometricReader implements PassportBiometricReader 
 
     @Override
     public BiometricData getPassportBiometricData()  {
-        return new BiometricData();
+        return new BiometricData(new SingleBiometricData(new byte[10]), new SingleBiometricData(new byte[10]));
     }
 }

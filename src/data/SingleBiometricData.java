@@ -6,10 +6,10 @@ public class SingleBiometricData {
         this.data = data;
     }
 
-    public boolean equals(SingleBiometricData data1, SingleBiometricData data2){
-        if (data1.data.length==data2.data.length){
+    public boolean compare(SingleBiometricData data1){
+        if (data1.data.length==data.length){
             for (int i=0; i<data1.data.length;i++){
-                if (data1.data[i]!=data2.data[i]){
+                if (data1.data[i]!=data[i]){
                     return false;
                 }
             }

@@ -1,9 +1,13 @@
+import biometric.PositiveHumanBiometricScanner;
+import biometric.PositivePassportBiometricReader;
 import data.Nif;
 import data.Password;
 import data.VotingOption;
 import electoralOrganism.EnableElectoralOrganism;
 import evoting.VotingKiosk;
 
+import exceptions.InvalidDNIDocumException;
+import exceptions.ProceduralException;
 import localService.PositiveLocalService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,7 +31,7 @@ public class TestVotingKiosk {
         opcions.add(new VotingOption("partit2"));
         opcions.add(new VotingOption("partit3"));
         // Inicializar la instancia de VotingKiosk antes de cada prueba
-        votingKiosk = new VotingKiosk(opcions, new PositiveLocalService(), new EnableElectoralOrganism());
+        votingKiosk = new VotingKiosk(opcions, new PositiveLocalService(), new EnableElectoralOrganism(), new PositivePassportBiometricReader(), new PositiveHumanBiometricScanner());
     }
 
     @Test
@@ -67,21 +71,21 @@ public class TestVotingKiosk {
         assertDoesNotThrow(() -> votingKiosk.enterAccount(name,psw));
     }
     @Test
-    public void testconfirmIdentifValid() throws VotingKiosk.InvalidDNIDocumException {
+    public void testconfirmIdentifValid() throws InvalidDNIDocumException {
         java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
         System.setOut(new java.io.PrintStream(out));
         votingKiosk.confirmIdentif('a');
         assertEquals("Document correcte",out.toString().trim());
     }
     @Test
-    public void testConfirmIdentifInvalid() throws VotingKiosk.InvalidDNIDocumException {
+    public void testConfirmIdentifInvalid() throws InvalidDNIDocumException {
         java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
         System.setOut(new java.io.PrintStream(out));
-        assertThrows(VotingKiosk.InvalidDNIDocumException.class,() -> votingKiosk.confirmIdentif('b'));
-        assertThrows(VotingKiosk.InvalidDNIDocumException.class,() -> votingKiosk.confirmIdentif('c'));
-        assertThrows(VotingKiosk.InvalidDNIDocumException.class,() -> votingKiosk.confirmIdentif('d'));
-        assertThrows(VotingKiosk.InvalidDNIDocumException.class,() -> votingKiosk.confirmIdentif('z'));
-        assertThrows(VotingKiosk.InvalidDNIDocumException.class,() -> votingKiosk.confirmIdentif('4'));
+        assertThrows(InvalidDNIDocumException.class,() -> votingKiosk.confirmIdentif('b'));
+        assertThrows(InvalidDNIDocumException.class,() -> votingKiosk.confirmIdentif('c'));
+        assertThrows(InvalidDNIDocumException.class,() -> votingKiosk.confirmIdentif('d'));
+        assertThrows(InvalidDNIDocumException.class,() -> votingKiosk.confirmIdentif('z'));
+        assertThrows(InvalidDNIDocumException.class,() -> votingKiosk.confirmIdentif('4'));
     }
 
 
@@ -100,7 +104,7 @@ public class TestVotingKiosk {
     }
     @Test
     public void testVoteInvalid(){
-        assertThrows(VotingKiosk.ProceduralException.class,() -> votingKiosk.vote());
+        assertThrows(ProceduralException.class,() -> votingKiosk.vote());
     }
     @Test
     public void testConfirmVotingOptionValid(){
@@ -111,7 +115,7 @@ public class TestVotingKiosk {
     }
     @Test
     public void testConfirmVotingOptionInvalid(){
-        assertThrows(VotingKiosk.ProceduralException.class,() -> votingKiosk.confirmVotingOption('a'));
+        assertThrows(ProceduralException.class,() -> votingKiosk.confirmVotingOption('a'));
         VotingOption vopt1=new VotingOption("partit1");
         assertDoesNotThrow(() ->  votingKiosk.consultVotingOption(vopt1));
         assertDoesNotThrow(() ->  votingKiosk.vote());

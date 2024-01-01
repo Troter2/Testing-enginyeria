@@ -1,9 +1,12 @@
+import biometric.PositiveHumanBiometricScanner;
+import biometric.PositivePassportBiometricReader;
 import data.Nif;
 import data.Password;
 import data.VotingOption;
 import electoralOrganism.EnableElectoralOrganism;
 import electoralOrganism.NotEnableElectoralOrganism;
 import evoting.VotingKiosk;
+import exceptions.InvalidNifException;
 import localService.NegativeLocalService;
 import localService.PositiveLocalService;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,12 +29,12 @@ public class TestVotingKioskInvalidLS {
         opcions.add(new VotingOption("partit2"));
         opcions.add(new VotingOption("partit3"));
         // Inicializar la instancia de VotingKiosk antes de cada prueba
-        votingKiosk = new VotingKiosk(opcions, new NegativeLocalService(), new EnableElectoralOrganism());
+        votingKiosk = new VotingKiosk(opcions, new NegativeLocalService(), new EnableElectoralOrganism(), new PositivePassportBiometricReader(), new PositiveHumanBiometricScanner());
 
     }
 
     @Test
-    public void testEnterAccountInvalid() throws Nif.InvalidNifException {
+    public void testEnterAccountInvalid() throws InvalidNifException {
 
 
         java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();

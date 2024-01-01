@@ -15,7 +15,7 @@ public class PositiveHumanBiometricScanner implements HumanBiometricScanner {
 
     @Override
     public SingleBiometricData scanFingerprintBiometrics() throws HumanBiometricScanningException {
-        byt1[1]=1;
+        byt1[0]=1;
         return new SingleBiometricData(byt1);
     }
 }
