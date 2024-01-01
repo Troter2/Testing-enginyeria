@@ -65,7 +65,7 @@ public class VotingKiosk {
         try {
             localService.verifyAccount(login,pssw);
         } catch (LocalService.InvalidAccountException e) {
-            e.printStackTrace();
+            System.out.println("Credencials incorrectes");
         }
     }
     public void confirmIdentif (char conf) throws InvalidDNIDocumException
@@ -85,11 +85,9 @@ public class VotingKiosk {
             electoralOrganism.canVote(nif);
             curNif = nif;
         } catch (ElectoralOrganism.NotEnabledException e) {
-            System.out.println("Aquest usuari ja no pot votar");
             throw new VotingKiosk.InvalidDNIDocumException("Aquest usuari ja no pot votar");
         } catch (ConnectException e) {
             System.out.println("Error de conexión");
-            throw new VotingKiosk.InvalidDNIDocumException("Error de conexión");
         }
     }
     public void initOptionsNavigation () {

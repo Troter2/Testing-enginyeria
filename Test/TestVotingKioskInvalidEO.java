@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestVotingKioskInvalidEO {
     private VotingKiosk votingKiosk;
@@ -30,6 +31,7 @@ public class TestVotingKioskInvalidEO {
     @Test
     public void testEnterNifValid() throws Nif.InvalidNifException {
         Nif nif= new Nif("12345678N");
-        assertDoesNotThrow(() -> votingKiosk.enterNif(nif));
+
+        assertThrows(VotingKiosk.InvalidDNIDocumException.class,() -> votingKiosk.enterNif(nif));
     }
 }

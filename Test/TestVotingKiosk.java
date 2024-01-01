@@ -67,15 +67,6 @@ public class TestVotingKiosk {
         assertDoesNotThrow(() -> votingKiosk.enterAccount(name,psw));
     }
     @Test
-    public void testEnterAccountInvalid() throws Password.InvalidPasswordException {
-   //    java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
-   //    System.setOut(new java.io.PrintStream(out));
-   //    String name= "Juan";
-   //    Password psw=new Password("12A34");
-   //    votingKiosk.enterAccount(name,psw);
-   //    assertEquals("La contraseña debe tener al menos 5 caracteres",out.toString().trim());
-    }
-    @Test
     public void testconfirmIdentifValid() throws VotingKiosk.InvalidDNIDocumException {
         java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
         System.setOut(new java.io.PrintStream(out));
@@ -93,44 +84,13 @@ public class TestVotingKiosk {
         assertThrows(VotingKiosk.InvalidDNIDocumException.class,() -> votingKiosk.confirmIdentif('4'));
     }
 
+    
     @Test
-    public void testEnterNifInvalid() throws Nif.InvalidNifException {
-
-        // Intenta ingresar un NIF que cause una NotEnabledException
-        Nif nifNotEnabled = new Nif("12456789X");
-        try {
-            votingKiosk.enterNif(nifNotEnabled);
-            // Si no se lanza la excepción, la prueba falla
-            fail("Se esperaba InvalidDNIDocumException pero no se lanzó ninguna excepción.");
-        } catch (VotingKiosk.InvalidDNIDocumException e) {
-            // Comportamiento esperado
-            System.out.println("Aquest usuari ja no pot votar");
-        }
-
-        // Intenta ingresar un NIF que cause una ConnectException
-        Nif nifConnectException = new Nif("12456789X");
-        try {
-            votingKiosk.enterNif(nifConnectException);
-            // Si no se lanza la excepción, la prueba falla
-            fail("Se esperaba InvalidDNIDocumException pero no se lanzó ninguna excepción");
-        } catch (VotingKiosk.InvalidDNIDocumException e) {
-            // Comportamiento esperado
-            System.out.println("Error de conexión");
-        }
-    }
-
-
-    @Test
-    public void testConsultVotingOptionValid(){
-        VotingOption vopt1=new VotingOption("PSOE");
-        VotingOption vopt2=new VotingOption("PEPE");
-        assertDoesNotThrow(() ->  votingKiosk.consultVotingOption(vopt1));
-        assertDoesNotThrow(() ->  votingKiosk.consultVotingOption(vopt2));
-
-    }
-    @Test
-    public void testConsultVotingOptionInvalid(){
-
+    public void testConsultVotingOptionValid() {
+        VotingOption vopt1 = new VotingOption("PSOE");
+        VotingOption vopt2 = new VotingOption("PEPE");
+        assertDoesNotThrow(() -> votingKiosk.consultVotingOption(vopt1));
+        assertDoesNotThrow(() -> votingKiosk.consultVotingOption(vopt2));
     }
     @Test
     public void testVoteValid(){

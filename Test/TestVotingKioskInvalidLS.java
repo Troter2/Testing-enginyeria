@@ -1,7 +1,10 @@
 import data.Nif;
+import data.Password;
 import data.VotingOption;
+import electoralOrganism.EnableElectoralOrganism;
 import electoralOrganism.NotEnableElectoralOrganism;
 import evoting.VotingKiosk;
+import localService.NegativeLocalService;
 import localService.PositiveLocalService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,14 +26,22 @@ public class TestVotingKioskInvalidLS {
         opcions.add(new VotingOption("partit2"));
         opcions.add(new VotingOption("partit3"));
         // Inicializar la instancia de VotingKiosk antes de cada prueba
-        votingKiosk = new VotingKiosk(opcions, new PositiveLocalService(), new NotEnableElectoralOrganism());
+        votingKiosk = new VotingKiosk(opcions, new NegativeLocalService(), new EnableElectoralOrganism());
 
     }
 
     @Test
-    public void testEnterNifInvalid() throws Nif.InvalidNifException {
+    public void testEnterAccountInvalid() throws Nif.InvalidNifException {
+
+
         java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
-        Nif nif= new Nif("12345678N");
-        assertEquals("Document correcte",out.toString().trim());
+        System.setOut(new java.io.PrintStream(out));
+        try {
+            votingKiosk.enterAccount("user", new Password("password1A"));
+        } catch (Password.InvalidPasswordException e) {
+            throw new RuntimeException(e);
+        }
+        assertEquals("Credencials incorrectes",out.toString().trim());
+
     }
 }
