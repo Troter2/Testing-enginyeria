@@ -102,7 +102,7 @@ public class TestVotingKiosk {
         try {
             votingKiosk.enterNif(nifNotEnabled);
             // Si no se lanza la excepción, la prueba falla
-            fail("Se esperaba InvalidDNIDocumException pero no se lanzó ninguna excepción");
+            fail("Se esperaba InvalidDNIDocumException pero no se lanzó ninguna excepción.");
         } catch (VotingKiosk.InvalidDNIDocumException e) {
             // Comportamiento esperado
             System.out.println("Aquest usuari ja no pot votar");
